@@ -1,6 +1,7 @@
 const product = require('./products');
 const URL_HOME = "/"
-const URL_PRODUCT = "/products"
+const URL_PRODUCTS = "/products"
+const URL_PRODUCT = "/product"
 const URL_ADD_PRODUCT = "/addProduct"
 const URL_DEL_PRODUCT = "/removeProduct"
 const { isExistGetPath, isExistPostPath, isExistDeletePath } = require("./router");
@@ -15,8 +16,8 @@ function handleGetRequest(req, res){
     res.setHeader("Content-Type", 'application/json; charset=utf-8');
     res.statusCode = 200;
     if(isExistGetPath(res, req.url)){
-        if(req.url === URL_PRODUCT){
-            res.end(JSON.stringify(product.getProduct))
+        if(req.url === URL_PRODUCTS){
+            res.end(JSON.stringify(product.getProducts))
         } else if(req.url === URL_HOME){
             res.end('Hello World!');
         }
@@ -30,7 +31,11 @@ function handlePostRequest(req, res){
             req.on('data', function(data){
                 product.saveProduct(JSON.parse(data))
             })
-        }
+        } else if (req.url === URL_PRODUCT){
+            req.on('data', function(data){
+                res.end(JSON.stringify(product.getProduct(parseInt(data.toString()))))
+            })
+        } 
     }
 }
 

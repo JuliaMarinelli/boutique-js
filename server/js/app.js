@@ -5,7 +5,6 @@ const {requestSupported} = require("./router");
 const server = http.createServer(function(request, response){
     response.setHeader("Access-Control-Allow-Origin", "*")
     response.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    console.log(request.method)
     if(requestSupported(response, request.method)){
         if(request.method === "GET"){
             handleGetRequest(request, response);

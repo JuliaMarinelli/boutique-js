@@ -1,3 +1,5 @@
+const { cpuUsage } = require("process");
+
 const products = [
     {id:1, name:'Pomme', quantity:20, img:'https://media.lactualite.com/2011/06/une-pomme-par-jour.jpg', date:'31/10/2020', livraison:true, categorie:'Fruits et Legumes', prix:1},
     {id:2, name:'Poire', quantity:20, img:'https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/poire/poire_new_346_346_filled.jpg', date:'31/10/2020', livraison:false, categorie:'Fruits et Legumes', prix:1},
@@ -44,8 +46,18 @@ class Product {
         this.products = products;
     }
 
-    get getProduct(){
+    get getProducts(){
         return this.products;
+    }
+
+    getProduct(id){
+        let product;
+        products.forEach(p => {
+            if(p.id == id){
+                product = p
+            }
+        });
+        return product
     }
 
     saveProduct(product){
@@ -55,7 +67,7 @@ class Product {
     }
 
     updateProduct(){}
-    
+
     deleteProduct(id){
         for(var p in products){
             if(p.id == id){

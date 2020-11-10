@@ -30,7 +30,7 @@ $.get("http://localhost:5500/products")
 
         products.forEach(product => {
             let divCategorie = $("#"+product.categorie.replaceAll(" ", ""))
-            let cardDiv = $("<div></div>").addClass("card small").appendTo(divCategorie);
+            let cardDiv = $("<div></div>").addClass("card small").attr("onclick","window.location='product.html?id="+ product.id + "';").appendTo(divCategorie);
             let cardImgDiv = $("<div></div>").addClass("card-image").appendTo(cardDiv);
             let cardImg = $("<img>").attr("src", product.img).appendTo(cardImgDiv);
             let cardTitle = $("<span></span>").addClass("card-title brown-text text-darken-4").text(product.name).appendTo(cardImgDiv);

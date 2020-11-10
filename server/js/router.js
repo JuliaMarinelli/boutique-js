@@ -1,6 +1,6 @@
 const requestSupportedMethod = ["GET", "POST", "DELETE", "UPDATE"];
 const routerPathGet = ["/products"];
-const routerPathPost = ["/addProduct"];
+const routerPathPost = ["/addProduct", "/product"];
 const routerPathDelete = ["/removeProduct"]
 
 const { handleErrorRequest } = require("./middleError");
