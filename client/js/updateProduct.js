@@ -4,6 +4,7 @@ $(document).ready(function(){
 
 let form = $('form');
 
+// SETUP CATEGORIE SELECT
 $.get("http://localhost:5500/products")
     .then(function(response) {
         return response
@@ -21,15 +22,39 @@ $.get("http://localhost:5500/products")
         });
 
         categorieOpt = $("<option></option>").attr("value", "Autre").text("Autre").appendTo(categoriSelect);
-        categoriSelect.formSelect();
     })
+
+// GET PRODUCT DATA
+let searchParams = new URLSearchParams(window.location.search)
+if(searchParams.has('id')){
+    let id = parseInt(searchParams.get('id'))
+    $.ajax({
+        type:'POST',
+        url : "http://localhost:5500/product",
+        data : JSON.stringify(id),
+        dataType : "JSON"
+    }).then(function(response) {
+        return response
+    }).then(function (product){
+        $("#product_name").val(product.name)
+        $("#quantity").val(product.quantity)
+        $("#img_url").val(product.img)
+        $("#date").val(product.date)
+        $("#livraison").prop("checked", product.livraison)
+        $('#categorieSelect option[value="' + product.categorie + '"]').prop('selected', 'selected')
+        $("#price").val(product.prix)
+        $("#categorieSelect").formSelect();
+    })
+} 
 
 $("#message-confirmation").hide()
 $("#message-error").hide()
 
+// SUBMIT UPDATE
 form.on("submit", function(e){
     e.preventDefault();
     let product = {
+        id : parseInt(searchParams.get('id')),
         name : $("#product_name").val(),
         quantity : $("#quantity").val(),
         img : $("#img_url").val(),
@@ -49,13 +74,11 @@ form.on("submit", function(e){
     })
 
     if(isValid){
+        console.log(JSON.stringify(product))
         $.ajax({
             type:"UPDATE",
-            url : "http://localhost:5500/updateProduct",
-            data : JSON.stringify(product),
-            dataType : "json"
+            url : "http://localhost:5500/updateProduct&product=" + JSON.stringify(product)
         })
-        form.get(0).reset();
         $("#message-confirmation").show()
         $("#message-error").hide()
     } else {

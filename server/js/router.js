@@ -2,6 +2,8 @@ const requestSupportedMethod = ["GET", "POST", "DELETE", "UPDATE"];
 const routerPathGet = ["/products"];
 const routerPathPost = ["/addProduct", "/product"];
 const routerPathDelete = [new RegExp("\/removeProduct&id=[0-9]")]
+const routerPathUpdate = [new RegExp("\/updateProduct&product=")]
+
 
 const { handleErrorRequest } = require("./middleError");
 
@@ -38,6 +40,15 @@ class Router {
             }
         }
         handleErrorRequest(res, 404, `${url} doesn't exist in your DELETE router`);
+    }
+
+    isExistUpdatePath(res, url){
+        for(let e in routerPathUpdate){
+            if(routerPathUpdate[e].test(url)){
+                return true
+            }
+        }
+        handleErrorRequest(res, 404, `${url} doesn't exist in your UPDATE router`);
     }
 
     requestSupported(res, method){

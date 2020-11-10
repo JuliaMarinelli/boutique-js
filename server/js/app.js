@@ -1,5 +1,5 @@
 const http = require('http');
-const { handleGetRequest, handlePostRequest, handleDeleteRequest } = require('./middleware');
+const { handleGetRequest, handlePostRequest, handleDeleteRequest, handleUpdateRequest } = require('./middleware');
 const {requestSupported} = require("./router");
 
 const server = http.createServer(function(request, response){
@@ -14,6 +14,7 @@ const server = http.createServer(function(request, response){
         } else if (request.method === "DELETE"){
             handleDeleteRequest(request, response);
         } else if (request.method === "UPDATE"){
+            handleUpdateRequest(request, response);
         
         } else {
             handleGetRequest(response, statusCode, message);

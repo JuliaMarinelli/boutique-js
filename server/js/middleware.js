@@ -4,9 +4,11 @@ const URL_PRODUCTS = "/products"
 const URL_PRODUCT = "/product"
 const URL_ADD_PRODUCT = "/addProduct"
 const URL_DEL_PRODUCT = new RegExp("\/removeProduct&id=[0-9]")
-const { isExistGetPath, isExistPostPath, isExistDeletePath } = require("./router");
+const URL_UPDATE_PRODUCT = new RegExp("\/updateProduct&product=")
+const { isExistGetPath, isExistPostPath, isExistDeletePath, isExistUpdatePath } = require("./router");
 
 const { handleErrorRequest } = require("./middleError");
+const products = require('./products');
 
 function Middleware(){
 
@@ -50,9 +52,21 @@ function handleDeleteRequest(req, res){
     }
 }
 
+function handleUpdateRequest(req, res){
+    res.statusCode = 202;
+    if(isExistUpdatePath(res, req.url)){
+        if(URL_UPDATE_PRODUCT.test(req.url)){
+            let url = req.url.split(URL_UPDATE_PRODUCT);
+            let productToUpdate = JSON.parse(decodeURI(url[1]))
+            product.updateProduct(productToUpdate)
+        }
+    }
+}
+
 
 
 Middleware.prototype.handleGetRequest = handleGetRequest;
 Middleware.prototype.handlePostRequest = handlePostRequest;
 Middleware.prototype.handleDeleteRequest = handleDeleteRequest;
+Middleware.prototype.handleUpdateRequest = handleUpdateRequest;
 module.exports = new Middleware();

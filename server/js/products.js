@@ -66,7 +66,13 @@ class Product {
         this.products = this.products;
     }
 
-    updateProduct(){}
+    updateProduct(product){
+        for(var p in products){
+            if(products[p].id === product.id){
+                products[p] = product
+            }
+        }
+    }
 
     deleteProduct(id){
         for(var p in products){
