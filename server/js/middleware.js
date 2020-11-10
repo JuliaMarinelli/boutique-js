@@ -2,7 +2,8 @@ const product = require('./products');
 const URL_HOME = "/"
 const URL_PRODUCT = "/products"
 const URL_ADD_PRODUCT = "/addProduct"
-const { isExistGetPath, isExistPostPath } = require("./router");
+const URL_DEL_PRODUCT = "/removeProduct"
+const { isExistGetPath, isExistPostPath, isExistDeletePath } = require("./router");
 
 const { handleErrorRequest } = require("./middleError");
 
@@ -28,6 +29,17 @@ function handlePostRequest(req, res){
         if(req.url === URL_ADD_PRODUCT){
             req.on('data', function(data){
                 product.saveProduct(JSON.parse(data))
+            })
+        }
+    }
+}
+
+function handleDeleteRequest(req, res){
+    res.statusCode = 202;
+    if(isExistDeletePath(res, req.url)){
+        if(req.url === URL_DEL_PRODUCT){
+            req.on('data', function(data){
+                product.removeProduct(parseInt(data))
             })
         }
     }

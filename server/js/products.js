@@ -55,7 +55,14 @@ class Product {
     }
 
     updateProduct(){}
-    deleteProduct(){}
+    
+    deleteProduct(id){
+        for(var p in products){
+            if(p.id == id){
+                console.log("Remove " + p)
+            }
+        }
+    }
 }
 
 module.exports = new Product();

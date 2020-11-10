@@ -1,7 +1,7 @@
 const requestSupportedMethod = ["GET", "POST", "DELETE", "UPDATE"];
 const routerPathGet = ["/products"];
 const routerPathPost = ["/addProduct"];
-
+const routerPathDelete = ["/removeProduct"]
 
 const { handleErrorRequest } = require("./middleError");
 
@@ -28,6 +28,15 @@ class Router {
         }
         else{
             handleErrorRequest(res, 404, `${url} doesn't exist in your POST router`);
+        }
+    }
+
+    isExistDeletePath(res, url){
+        if(routerPathDelete.indexOf(url) !== -1){
+            return true;
+        }
+        else{
+            handleErrorRequest(res, 404, `${url} doesn't exist in your DELETE router`);
         }
     }
 
