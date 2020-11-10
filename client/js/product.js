@@ -14,10 +14,12 @@ if(searchParams.has('id')){
         let productSubTitle = $("#productSubTitle");
         let productImg = $("#productImg");
         let divProductInfo = $("#productInfo");
+        let updateButton = $("#updateButton");
 
         productTitle.text(product.name)
         productSubTitle.text("(" + product.categorie + ")")
         productImg.attr("src", product.img);
+        updateButton.attr("onclick","window.location='updateProduct.html?id="+ product.id + "';")
 
         let quantity = $("<p></p>").text('Quantité : '+ product.quantity).appendTo(divProductInfo)
         let date = $("<p></p>").text('Date : '+ product.date).appendTo(divProductInfo)
