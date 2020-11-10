@@ -22,7 +22,7 @@ if(searchParams.has('id')){
         let quantity = $("<p></p>").text('Quantité : '+ product.quantity).appendTo(divProductInfo)
         let date = $("<p></p>").text('Date : '+ product.date).appendTo(divProductInfo)
         let livraison = $("<p></p>").text(product.livraison ? "Livraison disponnible" : "Livraison indisponnible").appendTo(divProductInfo)
-        let prix = $("<p></p>").text('Prix : '+ product.prix).appendTo(divProductInfo)
+        let prix = $("<p></p>").text('Prix : '+ product.prix + "€").appendTo(divProductInfo)
     })
 
 } // true

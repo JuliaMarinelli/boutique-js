@@ -16,7 +16,7 @@ $.get("http://localhost:5500/products")
         
         categories.forEach(categorie =>{
             let divCategorie = $("<div></div>");
-            let titreCategorie = $("<h2></h2>").text(categorie).appendTo(divCategorie);
+            let titreCategorie = $("<h2></h2>").addClass("brown-text text-darken-4").text(categorie).appendTo(divCategorie);
             let iconCategorie = $("<i></i>").text("arrow_drop_up").addClass("large material-icons").appendTo(titreCategorie);
             let rowDiv = $("<div></div>").addClass("card-list").attr("id", categorie.replaceAll(" ", "")).appendTo(divCategorie)
             titreCategorie.on("click", function(){
@@ -34,7 +34,7 @@ $.get("http://localhost:5500/products")
             let cardImgDiv = $("<div></div>").addClass("card-image").appendTo(cardDiv);
             let cardImg = $("<img>").attr("src", product.img).appendTo(cardImgDiv);
             let cardTitle = $("<span></span>").addClass("card-title brown-text text-darken-4").text(product.name).appendTo(cardImgDiv);
-            let cardContent = $("<div></div>").addClass("card-content").appendTo(cardDiv);
+            let cardContent = $("<div></div>").addClass("card-content brown-text text-darken-4").appendTo(cardDiv);
             let quantityText = $("<p></p>").text("Quantité : " + product.quantity).appendTo(cardContent);
             let dateText = $("<p></p>").text("Date : " + product.date).appendTo(cardContent);
             let livraisonText = $("<p></p>").text(product.livraison ? "Livraison disponnible" : "Livraison indisponnible").appendTo(cardContent);
