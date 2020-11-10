@@ -1,10 +1,28 @@
 $(document).ready(function(){
     $('.datepicker').datepicker();
-    $('select').formSelect();
 });
 
 let form = $('form');
 
+$.get("http://localhost:5500/products")
+    .then(function(response) {
+        return response
+    })
+    .then(function(data){
+        const products = data
+        const categories = [];
+        const categoriSelect = $("#categorieSelect");
+
+        products.forEach(product => {
+            if(categories.indexOf(product.categorie) === -1){
+                categories.push(product.categorie);
+                let categorieOpt = $("<option></option>").attr("value", product.categorie).text(product.categorie).appendTo(categoriSelect);
+            }
+        });
+
+        categorieOpt = $("<option></option>").attr("value", "Autre").text("Autre").appendTo(categoriSelect);
+        categoriSelect.formSelect();
+    })
 
 $("#message-confirmation").hide()
 $("#message-error").hide()
