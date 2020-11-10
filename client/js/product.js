@@ -25,4 +25,4 @@ if(searchParams.has('id')){
         let prix = $("<p></p>").text('Prix : '+ product.prix + "€").appendTo(divProductInfo)
     })
 
-} // true
+} 

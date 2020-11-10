@@ -1,7 +1,7 @@
 const requestSupportedMethod = ["GET", "POST", "DELETE", "UPDATE"];
 const routerPathGet = ["/products"];
 const routerPathPost = ["/addProduct", "/product"];
-const routerPathDelete = ["/removeProduct"]
+const routerPathDelete = [new RegExp("\/removeProduct&id=[0-9]")]
 
 const { handleErrorRequest } = require("./middleError");
 
@@ -32,12 +32,12 @@ class Router {
     }
 
     isExistDeletePath(res, url){
-        if(routerPathDelete.indexOf(url) !== -1){
-            return true;
+        for(let e in routerPathDelete){
+            if(routerPathDelete[e].test(url)){
+                return true
+            }
         }
-        else{
-            handleErrorRequest(res, 404, `${url} doesn't exist in your DELETE router`);
-        }
+        handleErrorRequest(res, 404, `${url} doesn't exist in your DELETE router`);
     }
 
     requestSupported(res, method){

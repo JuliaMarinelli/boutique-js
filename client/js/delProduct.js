@@ -37,17 +37,14 @@ $("#message-error").hide()
 form.on("submit", function(e){
     e.preventDefault();
     
-    let idToDel = {id : productSelect.val()};
+    let idToDel = productSelect.val();
     let isValid = idToDel !== "";
 
-    console.log(idToDel)
-
     if(isValid){
+
         $.ajax({
             type:'DELETE',
-            url : "http://localhost:5500/delProduct",
-            data : JSON.stringify(idToDel),
-            dataType : "JSON"
+            url : "http://localhost:5500/removeProduct&id="+idToDel.toString(),
         })
         form.get(0).reset();
         $("#message-confirmation").show()

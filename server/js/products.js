@@ -61,7 +61,7 @@ class Product {
     }
 
     saveProduct(product){
-        const id = this.products.length + 1;
+        const id = this.products[this.products.length - 1].id + 1
         this.products.push({id: id, ...product})
         this.products = this.products;
     }
@@ -70,8 +70,8 @@ class Product {
 
     deleteProduct(id){
         for(var p in products){
-            if(p.id == id){
-                console.log("Remove " + p)
+            if(products[p].id === id){
+                products.splice(p,1);
             }
         }
     }
